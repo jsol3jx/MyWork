@@ -1,5 +1,4 @@
 # Here Lies My Work
-A aggregation of my powershell work. 
 
 Right now this repo only contains the scripts that I've written for supporting Azure Microsoft Virtual Desktop(Fall 2019). They take care of things that I found myself constantly having to do in my day-to-day. I hope someone else can find them helpful. 
 
