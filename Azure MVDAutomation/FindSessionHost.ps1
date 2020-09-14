@@ -19,7 +19,7 @@ function FindSessionName {
         [string] $upn
     )
     
-    $Tenants = "ANSYS_VDI_AZUE","ANSYS_VDI_AZUW","ANSYS_VDI_AZIW","ANSYS_VDI_AZEW"
+    $Tenants = "Tenant1","Tenant2","Tenant3"
 
     ForEach ($Tenant in $Tenants)
     {
