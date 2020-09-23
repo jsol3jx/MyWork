@@ -35,6 +35,12 @@ function FindSessionName {
 $SessionNames = FindSessionName -upn $upn
 $SessionNames = $SessionNames | Where-Object {$_ -ne $null}
 
-Write-Host "Here are associated session hosts for user $upn"
-
-$SessionNames
+if ($SessionNames -eq $null)
+{
+    Write-Host "$upn is not assigned to any session hosts."
+}
+else 
+{
+    Write-Host "Here are associated session hosts for user $upn"
+    $SessionNames
+}
