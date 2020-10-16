@@ -14,12 +14,12 @@ function Get-MVDAssignments {
         
         foreach ($HPname in $AllHPs) 
         {
-            $AssignedUsers = Get-AzWvdSessionHost -HostPoolName $HPname -ResourceGroupName $RGname | Select-Object -Property Name,AssignedUser             
+            Get-AzWvdSessionHost -HostPoolName $HPname -ResourceGroupName $RGname | Select-Object -Property Name,AssignedUser             
         }
     }
     return $Assignments
 }
 
-$Assignments | Out-GridView
+Get-MVDAssignments | Out-GridView
 
 
