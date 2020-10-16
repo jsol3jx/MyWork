@@ -17,12 +17,9 @@ function Get-MVDAssignments {
             $AssignedUsers = Get-AzWvdSessionHost -HostPoolName $HPname -ResourceGroupName $RGname | Select-Object -Property Name,AssignedUser             
         }
     }
-        
+    return $Assignments
 }
 
-    
-$Output = Get-MVDAssignments
-
-$Output | Out-GridView
+$Assignments | Out-GridView
 
 
