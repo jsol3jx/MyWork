@@ -40,18 +40,24 @@ function Get-SpringSessionName {
         [string] $upn
     )
 
-    $AllRGs = (Get-AzResourceGroup).ResourceGroupName
-
-    Foreach ($RGname in $AllRGs)
+    $Subscriptions = "SubID1","SubID2"
+    
+    foreach ($subs in $Subscriptions) 
     {
-        $AllHPs = (Get-AzWvdHostPool -ResourceGroupName $RGname).name
-        
-        foreach ($HPname in $AllHPs) 
+        Select-AzSubscription -SubscriptionId $subs | out-null
+        $AllRGs = (Get-AzResourceGroup).ResourceGroupName    
+
+        Foreach ($RGname in $AllRGs)
         {
-            (Get-AzWvdSessionHost -HostPoolName $HPname -ResourceGroupName $RGname | where-object {$_.AssignedUser -eq $upn}).Name
+            $AllHPs = (Get-AzWvdHostPool -ResourceGroupName $RGname).name
+            
+            foreach ($HPname in $AllHPs) 
+            {
+                (Get-AzWvdSessionHost -HostPoolName $HPname -ResourceGroupName $RGname |  where-object {$_.AssignedUser -eq $upn}).Name
+            }
         }
     }
-    return $SpringAssignments
+    return $Assignments
 }
 
 $2019SessionNames = Get-FallSessionName -upn $upn
