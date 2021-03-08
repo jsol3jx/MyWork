@@ -1,5 +1,5 @@
 CreatedBy:John Stephen
-Date: 
+Date: 3/8/2021 
 Purpose: Pulls the password out of a SecureString\
 
 
