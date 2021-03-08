@@ -16,7 +16,7 @@ $AllTenants = (Get-RdsTenant).TenantName
         $Hostpools = (Get-RdsHostPool -TenantName $Tenant).HostPoolName
         foreach ($Hostpool in $Hostpools) 
         {
-            Get-RdsSessionHost -TenantName $Tenant -HostPoolName $Hostpool
+            Get-RdsSessionHost -TenantName $Tenant -HostPoolName $Hostpool | Select-Object SessionHostName,AssignedUser
         }
     }
     
@@ -26,4 +26,4 @@ $AllTenants = (Get-RdsTenant).TenantName
 $AssignedUsers = UserSessionDump
 
 #Exports that output to a csv file. 
-$AssignedUsers | Export-Csv Path
+$AssignedUsers | Export-Csv C:\WVD\Fall2019AssignedUsers.csv

@@ -40,7 +40,7 @@ function Get-SpringSessionName {
         [string] $upn
     )
     #Manually had them entered due to the small amount of Subs for WVD compared to rest of Azure Environment. Cuts search time down.
-    $Subscriptions = "SubID1","SubID2"
+    $Subscriptions = "SubID","SubID","SubID","SubID"
     
     foreach ($subs in $Subscriptions) 
     {

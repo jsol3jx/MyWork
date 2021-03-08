@@ -13,7 +13,7 @@
      )
 
 #Function to find the session hosts the user is a part of.
-function Get-MVDUserAssignments {
+function Get-WVDUserAssignments {
     param (
         [Parameter(Mandatory=$true)]
         [string] $upn
@@ -33,7 +33,7 @@ function Get-MVDUserAssignments {
     return $Assignments
 }
 
-$SessionNames = Get-MVDUserAssignments -upn $upn
+$SessionNames = Get-WVDUserAssignments -upn $upn
 $SessionNames = $SessionNames | Where-Object {$_ -ne $null}
  
 if ($SessionNames -eq $null)
