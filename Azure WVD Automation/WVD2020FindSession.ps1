@@ -1,7 +1,7 @@
 #Created by: John Stephen
 #Created on: 11/6/2020
 #Written for: Azure Windows Virtual Desktop Spring 2020 (ARM Integrated)
-#Purpose: When provided a user UPN(email address) it will take that and search the MVD environment to find what session host(s) they are assigned.
+#Purpose: When provided a user UPN(email address) it will take that and search the WVD environment to find what session host(s) they are assigned.
 
 
 [CmdletBinding()]

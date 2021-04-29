@@ -1,7 +1,7 @@
 #Created by: John Stephen
 #Created on: 4/28/2021
 #Written for: Azure Windows Virtual Desktop Fall 2020 (ARM Integrated)
-#Purpose: When provided a text file of user UPNs(email addresses) the script will search the MVD environment to find what session host(s) they are assigned.
+#Purpose: When provided a text file of user UPNs(email addresses) the script will search the WVD environment to find what session host(s) they are assigned.
 
 #Import text file with UPN list.
 $upnlist = get-content -path C:\path\to\file\upnlist.txt
