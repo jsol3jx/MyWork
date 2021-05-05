@@ -45,4 +45,12 @@ function Get-FallSessionName {
     }
 }
 $2019SessionNames = Get-FallSessionName -UserPrincipalName $upnlist -Tenants $Tenants
-$2019SessionNames | Out-GridView
+
+If ($null -eq $2019AssignedUsers)
+{
+    Write-Host "There are no Fall 2019 Assignments."
+}
+    else 
+    {
+        $2019SessionNames | Out-GridView        
+    }

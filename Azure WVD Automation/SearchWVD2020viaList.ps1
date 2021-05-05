@@ -46,4 +46,12 @@ function Get-SpringSessionName {
     }
 }
 $2020SessionNames = Get-SpringSessionName -UserPrincipalName $upnlist -Subscriptions $Subscriptions
-$2020SessionNames | Out-GridView
+
+If ($null -eq $2020AssignedUsers)
+{
+    Write-Host "There are no Spring 2020 Assignments."
+}
+    else 
+    {
+        $2020SessionNames | Out-GridView        
+    }
