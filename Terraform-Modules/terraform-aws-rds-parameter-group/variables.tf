@@ -1,8 +1,3 @@
-variable "parameter_group_name" {
-  description = "The name of the DB parameter group"
-  type        = string
-  default     = ""
-}
 variable "parameter_group_description" {
   description = "The description of the DB parameter group"
   type        = string
@@ -10,7 +5,7 @@ variable "parameter_group_description" {
 }
 
 variable "parameter_group_family" {
-  description = "The family of the DB parameter group"
+  description = "The family of the DB parameter group ie. postgres"
   type        = string
   default     = ""
 }
