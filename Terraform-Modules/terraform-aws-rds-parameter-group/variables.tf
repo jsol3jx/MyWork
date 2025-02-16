@@ -1,9 +1,3 @@
-#variable "create" {
-#  description = "Whether to create this resource or not?"
-#  type        = bool
-#  default     = true
-#}
-
 variable "parameter_group_name" {
   description = "The name of the DB parameter group"
   type        = string
@@ -21,11 +15,13 @@ variable "parameter_group_family" {
   default     = ""
 }
 
-#variable "rds_group_parameters" {
-#description = "A list of DB parameter maps to apply"
-#type        = list(map(string))
-#default = [ ]
-#}
+variable "env" {
+  description = "Name for the environment (prod, demo, staging, or qa)"
+}
+
+variable "app_name" {
+  description = "capital, tokens, subscriptions, etc"
+}
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource"

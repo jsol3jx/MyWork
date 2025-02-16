@@ -3,12 +3,12 @@ provider "aws" {
 }
 
 resource "aws_db_parameter_group" "default" {
-  name        = var.parameter_group_name
+  name        = "${var.app_name}-app-${var.env}-pg12"
   family      = var.parameter_group_family
-  description = var.parameter_group_description
+  description = var.parameter_group_description == "null" ? "${var.app_name}-${var.env}" : var.parameter_group_description
 
   dynamic "parameter" {
-    for_each = jsondecode(file("${path.module}/parameters/parameters.json")) #var.rds_group_parameters
+    for_each = jsondecode(file("${path.module}/parameters/parameters.json"))
     content {
       name         = parameter.value.name
       value        = parameter.value.value
@@ -19,7 +19,10 @@ resource "aws_db_parameter_group" "default" {
   tags = merge(
     var.tags,
     {
-      "Name" = var.parameter_group_name
+      Name        = "${var.app_name}-app-${var.env}-pg12"
+      ManagedBy   = "Terraform"
+      Application = var.app_name
+      Environment = var.env
     },
   )
 
