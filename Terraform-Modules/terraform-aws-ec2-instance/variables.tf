@@ -107,20 +107,20 @@ variable "ipv6_address_count" {
 
 variable "ipv6_required" {
   description = "This variable is used when an ipv6 address is required."
-  default = false
+  default     = false
 }
 
 variable "security_group_rules" {
   description = "inbound/outbound rules for the ec2"
-  default = [ 
+  default = [
     {
-      "cidr_blocks": [ "0.0.0.0/0" ], 
-      "description": "Allow all outbound traffic", 
-      "from_port": 0, 
-      "protocol": "-1", 
-      "to_port": 65535, 
-      "type": "egress" 
-    } 
+      "cidr_blocks" : ["0.0.0.0/0"],
+      "description" : "Allow all outbound traffic",
+      "from_port" : 0,
+      "protocol" : "-1",
+      "to_port" : 65535,
+      "type" : "egress"
+    }
   ]
 }
 
@@ -131,10 +131,10 @@ variable "ami-os" {
 
 variable "ownedami" {
   description = "Variable that sets whether to use the Owned AMI"
-  default = true
+  default     = true
 }
 
 variable "windows_ssm" {
   description = "Conditional variable to install ssm agent on windows ec2 instances for session manager."
-  default = false
+  default     = false
 }

@@ -33,7 +33,7 @@ data "aws_subnets" "public_subnets" {
 }
 
 data "aws_ami" "non-owned" {
-  count = var.ownedami == true ? 0 : 1
+  count       = var.ownedami == true ? 0 : 1
   most_recent = true
   owners      = ["amazon"]
 
