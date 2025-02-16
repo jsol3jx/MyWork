@@ -29,11 +29,11 @@ variable "recovery_window" {
   default     = 7
 }
 
-variable "eb_env" {
+variable "env" {
   description = "Name for the Elastic Beanstalk environment (prod, sandbox, dev, qa, or staging)"
 }
 
-variable "eb_name" {
+variable "name" {
   description = "Name for the Elastic Beanstalk Application"
 }
 

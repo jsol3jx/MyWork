@@ -1,12 +1,12 @@
 resource "aws_secretsmanager_secret" "secret" {
   for_each                = var.secret_name
-  name                    = var.dbtype == "app" ? "/${var.eb_env}/${var.eb_name}/master/dbSecret" : "/${var.eb_env}/${var.eb_name}-${var.dbtype}/master/dbSecret"
+  name                    = var.dbtype == "app" ? "/${var.env}/${var.name}/master/dbSecret" : "/${var.env}/${var.name}-${var.dbtype}/master/dbSecret"
   recovery_window_in_days = var.recovery_window
   kms_key_id              = var.kms_key_id
   tags = {
     ManagedBy : "Terraform"
-    Service : var.eb_name
-    Environment : var.eb_env
+    Service : var.name
+    Environment : var.env
   }
 }
 
