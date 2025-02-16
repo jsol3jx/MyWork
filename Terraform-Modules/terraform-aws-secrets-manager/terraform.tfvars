@@ -3,5 +3,5 @@ secret_name = {
   "key2" = "value"
   "key3" = "value"
 }
-username = "value"
+username   = "value"
 secret_tag = "value"

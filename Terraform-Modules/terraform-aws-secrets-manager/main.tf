@@ -1,27 +1,22 @@
-resource "random_password" "password" {
-  for_each         = var.secret_name
-  length           = 16
-  special          = true
-  override_special = "_%@"
-}
-
-resource "aws_secretsmanager_secret" "secretmasterDB" {
+resource "aws_secretsmanager_secret" "secret" {
   for_each                = var.secret_name
-  name                    = "${var.secret_tag}-${each.key}"
-  recovery_window_in_days = 0
+  name                    = var.dbtype == "app" ? "/${var.eb_env}/${var.eb_name}/master/dbSecret" : "/${var.eb_env}/${var.eb_name}-${var.dbtype}/master/dbSecret"
+  recovery_window_in_days = var.recovery_window
+  kms_key_id              = var.kms_key_id
   tags = {
     ManagedBy : "Terraform"
-    UseCase : var.secret_tag
+    Service : var.eb_name
+    Environment : var.eb_env
   }
 }
 
-resource "aws_secretsmanager_secret_version" "sversion" {
-  for_each      = aws_secretsmanager_secret.secretmasterDB
-  secret_id     = aws_secretsmanager_secret.secretmasterDB[each.key].id
+resource "aws_secretsmanager_secret_version" "secretversion" {
+  for_each      = aws_secretsmanager_secret.secret
+  secret_id     = aws_secretsmanager_secret.secret[each.key].id
   secret_string = <<EOF
-   {
+{
     "username": "${var.username}",
-    "password": "${random_password.password[each.key].result}"
-   }
+    "password": "${var.password}" 
+}
 EOF
 }
