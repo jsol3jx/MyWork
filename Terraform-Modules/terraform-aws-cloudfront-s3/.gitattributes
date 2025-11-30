@@ -1,0 +1,16 @@
+# Ensure Terraform files use LF line endings
+*.tf text eol=lf
+*.tfvars text eol=lf
+# Shell scripts also LF
+*.sh text eol=lf
+# Treat typical text files sensibly
+*.md text
+*.txt text
+# Auto-detect other files
+* text=auto
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary

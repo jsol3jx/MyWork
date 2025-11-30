@@ -1,0 +1,86 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SSM Parameter Store replicator (scheduled-only)
+
+Parameters:
+  ScheduleExpression:
+    Type: String
+    Default: cron(0 2 * * ? *)  # daily @ 02:00 UTC
+  SrcRegion:
+    Type: String
+    Default: us-west-1
+  DstRegion:
+    Type: String
+    Default: us-east-2
+  Prefix:
+    Type: String
+    Description: "Path prefix to replicate (must start with /, e.g. /prod/)"
+  Overwrite:
+    Type: String
+    AllowedValues: ["true","false"]
+    Default: "true"
+  DestKmsKeyId:
+    Type: String
+    Default: ""   # optional
+  PageSize:
+    Type: Number
+    Default: 50
+  DryRun:
+    Type: String
+    AllowedValues: ["true","false"]
+    Default: "false"
+  SinceISO:
+    Type: String
+    Default: ""   # e.g. 2025-09-01T00:00:00Z
+  SinceDays:
+    Type: String
+    Default: ""   # e.g. "7"
+
+Resources:
+  ReplicatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: python3.11
+      Handler: app.lambda_handler
+      CodeUri: src/
+      Timeout: 900                 # 15 minutes
+      MemorySize: 256
+      Tracing: Active
+      Environment:
+        Variables:
+          SRC_REGION: !Ref SrcRegion
+          DST_REGION: !Ref DstRegion
+          PREFIX: !Ref Prefix
+          OVERWRITE: !Ref Overwrite
+          DEST_KMS_KEY_ID: !Ref DestKmsKeyId
+          PAGE_SIZE: !Ref PageSize
+          DRY_RUN: !Ref DryRun
+          SINCE_ISO: !Ref SinceISO
+          SINCE_DAYS: !Ref SinceDays
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action: ["ssm:DescribeParameters","ssm:GetParameter","ssm:ListTagsForResource"]
+              Resource: "*"
+            - Effect: Allow
+              Action: ["ssm:PutParameter","ssm:AddTagsToResource"]
+              Resource: "*"
+            - Effect: Allow
+              Action: ["kms:Decrypt"]
+              Resource: "*"
+            - Effect: Allow
+              Action: ["kms:Encrypt","kms:GenerateDataKey*","kms:Decrypt"]
+              Resource: "*"
+      Events:
+        Nightly:
+          Type: Schedule
+          Properties:
+            Schedule: !Ref ScheduleExpression
+            Enabled: true
+
+Outputs:
+  FunctionName:
+    Value: !Ref ReplicatorFunction
+  FunctionArn:
+    Value: !GetAtt ReplicatorFunction.Arn
